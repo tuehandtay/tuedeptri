@@ -13,7 +13,6 @@ class PolicyNetwork(nn.Module):
             nn.Linear(256, 128),
             nn.ReLU(),
             nn.Linear(128, action_dim)
-            len = 0
         )
     
     def forward(self, x):
