@@ -169,3 +169,30 @@ class Policy2210xxx(Policy):
                         }
         
         return {"stock_idx": 0, "size": [0, 0], "position": (0, 0)}
+    def _calculate_waste(self, stock, position, size):
+        """Tính toán diện tích lãng phí khi đặt sản phẩm"""
+        x, y = position
+        w, h = size
+        stock_w = np.sum(np.any(stock != -2, axis=1))
+        stock_h = np.sum(np.any(stock != -2, axis=0))
+        
+        # Tính diện tích trống xung quanh vị trí đặt
+        empty_area = 0
+        for i in range(max(0, x-1), min(stock_w, x+w+1)):
+            for j in range(max(0, y-1), min(stock_h, y+h+1)):
+                if stock[i,j] == -1:
+                    empty_area += 1
+                    
+        return empty_area - w*h
+
+    def _get_stock_size_(self, stock):
+        """Lấy kích thước thực của stock"""
+        width = np.sum(np.any(stock != -2, axis=1))
+        height = np.sum(np.any(stock != -2, axis=0))
+        return width, height
+
+    def _can_place_(self, stock, position, size):
+        """Kiểm tra có thể đặt sản phẩm không"""
+        x, y = position
+        w, h = size
+        return np.all(stock[x:x+w, y:y+h] == -1)
