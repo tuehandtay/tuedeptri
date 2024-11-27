@@ -4,12 +4,14 @@ import numpy as np
 
 class Policy2352429(Policy):
     def __init__(self):
+        # Student code here
         """
         Initialize the policy with necessary parameters.
         """
         super().__init__()
 
     def get_action(self, observation, info):
+        # Student code here
         """
         Select an action based on the current observation and additional information.
 
@@ -62,3 +64,6 @@ class Policy2352429(Policy):
                         }
 
         return None
+
+        # Student code here
+        # You can add more functions if needed
